@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- css static -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/users/profile.css' %}"/>
+    <!-- Bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"/>
+
+    <!--JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.6.2.min.js"></script>
+
+
+</head>
+<body>
+
+
+<div class="row">
+    <!-- Nav  Bar -->
+    <nav id="nav_bar" class=" col-2  ">
+        <!-- Nav  Bar  TOP-->
+
+        <ul class="navbar-nav  ">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'posts:Main' %}">
+                    <spna class="symbol_text"> Instagram</spna>
+                </a>
+            </li>
+            <li class="nav-item" style="padding-top: 50px">
+                <a class="nav-link" href="{% url 'posts:Main' %}"><i class="fa-solid fa-house fa-lg"></i>Home</a>
+            </li>
+            <li id="nav_bar_add_box" class="nav-item" style="padding-top: 10px">
+                <span class="nav-link" href="#"> <i class=" fa-regular fa-square-plus"></i>CREATE</span>
+
+
+            </li>
+            <li class="nav-item" style="padding-top: 10px">
+                <a class="nav-link" href="{% url 'users:Profile' %}">Profile</a>
+            </li>
+        </ul>
+        <!-- Nav  Bar  Down-->
+        <ul class="navbar-nav pb-30px  ">
+            <li class="nav-item dropdown">
+                <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fa-solid fa-bars fa-lg"></i> More
+                </a>
+                <ul class="dropdown-menu">
+                    <li><span id="switch_appearance" class="dropdown-item">Switch appearance <i
+                            class="fa-regular fa-moon"></i></span></li>
+
+                    <li><a class="dropdown-item" href="{% url 'users:Profile' %}">Liked <i class="fa-regular fa-heart"></i></a></li>
+                    <li class="switch_account_nav"><span class="dropdown-item">Switch accounts</span>
+
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+
+
+    </nav>
+
+
+
+    {% block body %}
+    {% endblock %}
+
+</div>
+</div>
+<!-- switch modal-->
+<div id="switch_modal_overlay" >
+    <div class="switch_modal_window">
+        <div class="modal_title">
+
+            <ul>
+
+                <p>
+                    <label><input type="radio" name="account_user" value="A_nickname">A_nickname</label>
+                    <label><input type="radio" name="account_user" value="B_nickname">B_nickname</label>
+                      <label><input type="radio" name="account_user" value="C_nickname">C_nickname</label>
+                </p>
+                <p><input type="button" value="Change"> </p>
+
+
+
+
+            </ul>
+            <span id="switch_close_modal" class="material-icons-outlined">
+                  <i class="fa-regular fa-rectangle-xmark"></i>
+                </span>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!--Create post first modal  -->
+<div id="first_modal" class="modal_overlay">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div> 새 게시물</div>
+            <div class="modal_title_side">
+                <span id="close_modal" class="material-icons-outlined">
+                  <i class="fa-regular fa-rectangle-xmark"></i>
+                </span>
+            </div>
+        </div>
+        <div class="modal_image_upload">
+
+        </div>
+    </div>
+</div>
+
+
+<!--Create post second modal  -->
+<div id="second_modal" class="modal_overlay">
+    <div class="modal_window">
+        <div class="modal_title">
+            <div class="modal_title_side"></div>
+            <div> 새 게시물</div>
+            <div class="modal_title_side">
+                <span id="create_second_close_modal" class="material-icons-outlined">
+                   <i class="fa-regular fa-rectangle-xmark"></i>
+                </span>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: row; border-top :solid 1px gray">
+            <div class="modal_image_upload"
+                 style="width:500px; height: 540px; background: green; margin-top: 20px ">
+
+            </div>
+            <div style="border-left:solid 1px gray">
+                <div>
+                    <textarea id="second_modal_textarea" class="form-control" style="width:270px; height: 400px;"
+                              id="exampleFormControlTextarea1"
+                              rows="5"></textarea>
+                </div>
+                <button id="post_create_button" class="btn btn-primary" style="width: 100%">
+                    공유하기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</div>
+<script>
+    <!--switch account -->
+
+        $("input[type='button']").click(function(){
+
+            var radioValue = $("input[name='account_user']:checked").val();
+
+            $.ajax({
+                url:"/users/switchAccount",
+                data:{
+                    nickname:radioValue,
+                },
+                method:"POST",
+
+                success: function(data){
+                    console.log("성공")
+                      location.replace("")
+                },
+                error:function (request, status,error){
+                console.log("error")
+                },
+                 complete: function (){
+                console.log(" 완료ㅏ ")
+                }
+            })
+
+        });
+
+   $('.switch_account_nav').click(function () {
+
+        $('#switch_modal_overlay').css({
+            display: 'inline-block',
+        })
+    })
+
+    $('#switch_close_modal').click(function () {
+        $('#switch_modal_overlay').css({
+            display: 'none',
+        })
+    })
+
+
+
+    <!-- switch appeerance -->
+    $('#switch_appearance').click(function () {
+        if ($(document.body).hasClass("dark_mode")) {
+            $(document.body).removeClass(("dark_mode")),
+                $(document.body).addClass(("light_mode_body")),
+                $('#nav_bar').removeClass(("dark_mode")),
+                $('#nav_bar').addClass(("light_mode_nav"));
+        } else {
+            $(document.body).addClass(("dark_mode")),
+                $(document.body).removeClass(("light_mode_body")),
+                $('#nav_bar').addClass(("dark_mode")),
+                $('#nav_bar').removeClass(("light_mode_nav"));
+        }
+    });
+
+    {#modal #}
+    $('#nav_bar_add_box').click(function () {
+        $('#first_modal').css({
+            display: 'flex',
+        })
+        $(document.body).css({
+            overflow: 'hidden'
+        })
+    })
+    $('#close_modal ,#create_second_close_modal ').click(function () {
+        $('#first_modal ,second_modal').css({
+            display: 'none',
+        })
+    })
+
+
+    $('.modal_image_upload')
+        .on("dragover", dragOver)
+        .on("dragleave", dragOver)
+        .on("drop", uploadFiles)
+
+    function dragOver(e) {
+        e.stopPropagation()
+        e.preventDefault()
+        if (e.type == "dragover") {
+            $(e.target).css({
+                "background-color": "black",
+                "outline-offset": "-10px"
+            })
+
+        } else {
+            $(e.target).css({
+                "background-color": "gray",
+                "outline-offset": "-10px"
+            })
+        }
+
+
+    }
+
+    function uploadFiles(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+
+        e.dataTransfer = e.originalEvent.dataTransfer; //2
+        files = e.target.files || e.dataTransfer.files;
+
+        if (files.length > 1) {
+            alert(' 하나 ' +
+                '' +
+                '만 올려라.');
+            return;
+        }
+
+        if (files[0].type.match(/image.*/)) {
+            $('#first_modal').css({
+                display: 'none',
+            })
+
+            $('#second_modal').css({
+                display: 'flex',
+            })
+
+            $('.modal_image_upload').css({
+                "background-image": "url(" + window.URL.createObjectURL(files[0]) + ")",
+                "outline": "none",
+                "background-size": "100% ",
+                "background-repeat": "no-repeat",
+                "background-position": "center"
+            });
+        } else {
+            alert('이미지가 아닙니다.');
+            return;
+        }
+
+    }
+
+    $('#post_create_button').click(function () {
+
+
+        let file = files[0]
+        let image = files[0].name;
+        let content = $('#second_modal_textarea').val();
+
+        let fd = new FormData();
+
+        fd.append("file", file)
+        fd.append("image", image)
+        fd.append("content", content)
+        console.log("before")
+        $.ajax({
+            url: "/upload",
+            data: fd,
+            method: "POST",
+            {##}
+            processData: false,
+            contentType: false,
+
+            success: function (data) {
+                console.log("compete upload")
+
+            },
+            error: function (request, status, error) {
+                console.log("error")
+
+            },
+            complete: function () {
+                console.log(" upload  Process complete ")
+                location.replace("")
+
+            }
+        })
+    })
+
+
+
+
+</script>
+
+
+<!-- JavaScript -->
+
+
+<!-- Bootstrap bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="text/javascript" src="{% static 'js/base.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/users/profile.js' %}"></script>
+
+</body>
+</html>

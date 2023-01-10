@@ -1,0 +1,162 @@
+
+.symbol_text {
+    font-family: 'Dancing Script', cursive;
+}
+
+nav {
+    borer: 1px solid red;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    position: fixed;
+
+
+}
+
+.navbar-nav {
+    padding: 30px;
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: 50px
+}
+
+/*post section*/
+.post_section {
+    position: relative;
+    left: 40%;
+    padding-left: 100px;
+    margin-top: 30px;
+}
+
+.post_card {
+
+    width: 500px;
+    height: 600px;
+}
+
+/*rigth body*/
+.right_body {
+
+    position: relative;
+    margin: 30px;
+    padding-left: 60px;
+    width: 400px;
+    left: 40%;
+
+}
+
+/*darkmode*/
+.dark_mode {
+    background: #222;
+    color: white;
+}
+
+.light_mode_body {
+    background: #fafafa;
+    color: black;
+}
+
+.light_mode_nav {
+    background: #ffffff;
+    color: black;
+}
+
+/*  create post */
+.modal_overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+
+}
+
+.modal_window {
+    background: white;
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 800px;
+    height: 600px;
+    position: relative;
+    padding: 10px;
+}
+
+.modal_image_upload {
+    outline: 2px dashed black;
+    outline-offset: -10px;
+    text-align: center;
+    transition: all .15s ease-in-out;
+    width: 780px;
+    height: 548px;
+}
+
+.modal_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.modal_title_side {
+    flex: 0 0 40px;
+    text-align: center;
+}
+
+
+/*switch account*/
+#switch_modal_overlay{
+
+    width: 100%;
+    height: 300%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
+}
+
+.switch_modal_window {
+    width:250px;
+    height:150px; /* footer의 높이 */
+    position: fixed;
+    bottom:0px;
+    left: 45%;
+    top:45%;
+
+    background: white;
+    backdrop-filter: blur(13.5px);
+    -webkit-backdrop-filter: blur(13.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    /*width: 100px;*/
+    /*height: 80px;*/
+    /*position: relative;*/
+    /*padding: 10px;*/
+}
+
+.switch_modal_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+
